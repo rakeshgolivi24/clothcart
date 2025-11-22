@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center py-5">
+    <h1 class="fw-bold display-4 mb-3">Oops!</h1>
+    <h4 class="mb-4">The page you're looking for doesn't exist.</h4>
+    <a href="{{ url_for('public.home') }}" class="btn btn-dark">Go Back Home</a>
+</div>
+{% endblock %}

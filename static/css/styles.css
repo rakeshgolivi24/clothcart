@@ -1,0 +1,11 @@
+body {
+    background-color: #fafafa;
+}
+
+.card {
+    border-radius: 1rem;
+}
+
+img {
+    object-fit: cover;
+}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0">
+        {% if active_category %}
+            {{ active_category.name }} Collection
+        {% else %}
+            All Products
+        {% endif %}
+    </h3>
+</div>
+
+<div class="mb-3">
+    <span class="me-2 fw-semibold">Filter:</span>
+    <a href="{{ url_for('public.products') }}" class="btn btn-sm {% if not active_category %}btn-dark{% else %}btn-outline-dark{% endif %} me-1">
+        All
+    </a>
+    {% for cat in categories %}
+        <a href="{{ url_for('public.products', slug=cat.slug) }}"
+           class="btn btn-sm {% if active_category and active_category.id == cat.id %}btn-dark{% else %}btn-outline-dark{% endif %} me-1">
+            {{ cat.name }}
+        </a>
+    {% endfor %}
+</div>
+
+<div class="row g-3">
+    {% for product in products %}
+        <div class="col-6 col-md-3">
+            <div class="card h-100 shadow-sm">
+                {% if product.images %}
+                    <img src="{{ url_for('static', filename='uploads/products/' ~ product.images[0].image_filename) }}"
+                         class="card-img-top" alt="{{ product.name }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/400x400?text=No+Image" class="card-img-top">
+                {% endif %}
+                <div class="card-body">
+                    <h6 class="card-title mb-1">{{ product.name }}</h6>
+                    <p class="text-muted mb-1">₹{{ product.price }}</p>
+                    <a href="{{ url_for('public.product_detail', slug=product.slug) }}" class="btn btn-sm btn-outline-dark w-100">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>No products found.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
